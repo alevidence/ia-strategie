@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IA Stratégie | Stéphane D'Acunto — Consultant IA pour PME</title>
+<meta name="description" content="Consultant IA spécialisé PME. Intégrez l'IA générative pour gagner du temps, structurer vos process et booster votre performance. Marseille, toute la francophonie.">
+<meta name="keywords" content="consultant IA PME, intelligence artificielle entreprise, IA générative, automatisation PME, Marseille">
+<meta property="og:title" content="IA Stratégie | Consultant IA pour PME — Stéphane D'Acunto">
+<meta property="og:description" content="L'IA générative qui travaille pour vous. Audit gratuit 30 min sans engagement.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+/* ================================================
+   DESIGN TOKENS
+   ================================================ */
+:root {
+  --bg:     #08080e;
+  --bg-1:   #0d0d17;
+  --bg-2:   #111120;
+  --bg-3:   #16162a;
+  --orange:     #ff6b2b;
+  --orange-lt:  #ff8c55;
+  --orange-glow:rgba(255,107,43,0.12);
+  --gold:       #c8a96e;
+  --gold-lt:    #dfc48e;
+  --gold-glow:  rgba(200,169,110,0.1);
+  --white:  #f0ede6;
+  --gray-1: #70708a;
+  --gray-2: #a8a8c0;
+  --cyan:   #00d4ff;
+  --r:      12px;
+  --ease:   0.28s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* ================================================
+   RESET
+   ================================================ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--white);
+  font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.65;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+
+/* Subtle noise overlay */
+body::after{
+  content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.022'/%3E%3C/svg%3E");
+  opacity:.35;
+}
+
+/* ================================================
+   UTILITIES
+   ================================================ */
+.container{max-width:1160px;margin:0 auto;padding:0 2rem}
+.eyebrow{
+  font-family:'Syne',sans-serif;font-size:.72rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.16em;color:var(--orange);
+}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.reveal.vis{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+.d4{transition-delay:.4s}.d5{transition-delay:.5s}
+
+/* ================================================
+   NAVIGATION
+   ================================================ */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  padding:1rem 0;
+  border-bottom:1px solid transparent;
+  transition:background var(--ease),border-color var(--ease);
+}
+.nav.on{
+  background:rgba(8,8,14,.93);
+  backdrop-filter:blur(24px);
+  border-bottom-color:rgba(255,107,43,.07);
+}
+.nav-inner{
+  max-width:1160px;margin:0 auto;padding:0 2rem;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.logo{
+  font-family:'Syne',sans-serif;font-size:1.25rem;font-weight:800;
+  letter-spacing:-.02em;color:var(--white);
+}
+.logo span{color:var(--orange)}
+.nav-links{display:flex;align-items:center;gap:2.5rem}
+.nav-links a{
+  font-size:.88rem;font-weight:500;color:var(--gray-1);
+  transition:color var(--ease);position:relative;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-3px;left:0;right:0;height:1px;
+  background:var(--orange);transform:scaleX(0);transform-origin:right;
+  transition:transform var(--ease);
+}
+.nav-links a:hover{color:var(--white)}
+.nav-links a:hover::after{transform:scaleX(1);transform-origin:left}
+.nav-btn{
+  background:var(--orange);color:#fff!important;
+  padding:.52rem 1.3rem;border-radius:6px;
+  font-family:'Syne',sans-serif;font-weight:700!important;font-size:.85rem!important;
+  transition:background var(--ease),transform var(--ease)!important;
+  white-space:nowrap;
+}
+.nav-btn:hover{background:var(--orange-lt)!important;transform:translateY(-1px)!important}
+.nav-btn::after{display:none!important}
+
+/* Burger */
+.burger{
+  display:none;flex-direction:column;gap:5px;
+  cursor:pointer;background:none;border:none;padding:4px;
+}
+.burger span{display:block;width:24px;height:2px;background:var(--white);border-radius:2px;transition:all var(--ease)}
+.burger.on span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger.on span:nth-child(2){opacity:0;transform:scaleX(0)}
+.burger.on span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* Mobile overlay */
+.mob-menu{
+  position:fixed;inset:0;z-index:998;
+  background:var(--bg-1);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;
+  transform:translateX(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);
+}
+.mob-menu.on{transform:translateX(0)}
+.mob-menu a{
+  font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:700;
+  color:var(--gray-2);transition:color var(--ease);
+}
+.mob-menu a:hover{color:var(--orange)}
+.mob-cta{
+  font-size:1rem!important;background:var(--orange);color:#fff!important;
+  padding:.9rem 2.5rem;border-radius:8px;font-weight:700!important;margin-top:1rem;
+}
+
+/* ================================================
+   HERO
+   ================================================ */
+#hero{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  text-align:center;position:relative;overflow:hidden;
+  padding:8rem 2rem 5rem;
+}
+.hero-mesh{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 30%,rgba(255,107,43,.07) 0%,transparent 70%),
+    radial-gradient(ellipse 50% 50% at 80% 70%,rgba(0,212,255,.04) 0%,transparent 60%),
+    radial-gradient(ellipse 60% 60% at 20% 60%,rgba(200,169,110,.04) 0%,transparent 60%);
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,107,43,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,107,43,.03) 1px,transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse at center,black 30%,transparent 80%);
+}
+.hero-orb{
+  position:absolute;width:700px;height:700px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,107,43,.05) 0%,transparent 70%);
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  animation:orb 8s ease-in-out infinite;pointer-events:none;
+}
+@keyframes orb{
+  0%,100%{transform:translate(-50%,-50%) scale(1)}
+  50%{transform:translate(-50%,-52%) scale(1.09)}
+}
+
+.hero-content{position:relative;z-index:2;max-width:840px}
+
+.hero-badge{
+  display:inline-flex;align-items:center;gap:.6rem;
+  background:rgba(255,107,43,.08);border:1px solid rgba(255,107,43,.25);
+  padding:.42rem 1.2rem;border-radius:30px;
+  font-family:'Syne',sans-serif;font-size:.72rem;font-weight:700;
+  color:var(--orange);letter-spacing:.14em;text-transform:uppercase;
+  margin-bottom:2rem;
+}
+.badge-dot{
+  width:6px;height:6px;border-radius:50%;background:var(--orange);
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.7)}}
+
+.hero-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(3rem,6vw,5.8rem);
+  font-weight:800;line-height:1.04;letter-spacing:-.02em;
+  color:var(--white);margin-bottom:1.8rem;
+}
+.hero-title .ac{color:var(--orange)}
+.hero-title .sub{
+  display:block;margin-top:.4em;
+  font-family:'Syne',sans-serif;font-size:.55em;font-weight:700;
+  color:var(--gray-2);letter-spacing:.01em;
+}
+
+.hero-sub{
+  font-size:1.1rem;color:var(--gray-2);
+  max-width:560px;margin:0 auto 2.8rem;line-height:1.8;
+}
+.hero-sub strong{color:var(--white);font-weight:500}
+
+.hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+
+.btn-p{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:var(--orange);color:#fff;
+  padding:.95rem 2.2rem;border-radius:8px;
+  font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;
+  transition:all var(--ease);white-space:nowrap;
+}
+.btn-p:hover{background:var(--orange-lt);transform:translateY(-2px);box-shadow:0 14px 40px rgba(255,107,43,.32)}
+
+.btn-o{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:transparent;color:var(--white);
+  padding:.95rem 2.2rem;border-radius:8px;
+  border:1px solid rgba(255,255,255,.12);
+  font-family:'Syne',sans-serif;font-weight:600;font-size:.95rem;
+  transition:all var(--ease);white-space:nowrap;
+}
+.btn-o:hover{border-color:var(--orange);color:var(--orange)}
+
+.scroll-hint{
+  position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;
+  color:var(--gray-1);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
+  font-family:'Syne',sans-serif;z-index:2;
+  animation:hint 2.5s ease-in-out infinite;
+}
+.scroll-hint::before{
+  content:'';width:1px;height:38px;
+  background:linear-gradient(to bottom,transparent,var(--orange));
+}
+@keyframes hint{
+  0%,100%{transform:translateX(-50%) translateY(0)}
+  50%{transform:translateX(-50%) translateY(5px)}
+}
+
+/* ================================================
+   TICKER
+   ================================================ */
+.ticker{
+  padding:1.15rem 0;
+  background:var(--bg-2);
+  border-top:1px solid rgba(255,107,43,.07);
+  border-bottom:1px solid rgba(255,107,43,.07);
+  overflow:hidden;
+}
+.ticker-track{
+  display:flex;white-space:nowrap;
+  animation:roll 28s linear infinite;
+}
+.ticker:hover .ticker-track{animation-play-state:paused}
+@keyframes roll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.ti{
+  display:inline-flex;align-items:center;gap:.7rem;
+  padding:0 3rem;
+  font-family:'Syne',sans-serif;font-size:.78rem;font-weight:600;
+  color:var(--gray-1);text-transform:uppercase;letter-spacing:.08em;
+}
+.ti span{color:var(--orange)}
+
+/* ================================================
+   STATS
+   ================================================ */
+#stats{padding:6rem 0;background:var(--bg-1)}
+.stats-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.04);border-radius:var(--r);overflow:hidden;
+}
+.sc{
+  background:var(--bg-1);padding:3rem 2.5rem;text-align:center;
+  position:relative;transition:background var(--ease);
+}
+.sc::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--orange),transparent);
+  opacity:0;transition:opacity var(--ease);
+}
+.sc:hover{background:var(--bg-2)}
+.sc:hover::before{opacity:1}
+.sn{
+  font-family:'Syne',sans-serif;font-size:clamp(3rem,5vw,4.5rem);
+  font-weight:800;color:var(--orange);line-height:1;
+  margin-bottom:.8rem;letter-spacing:-.03em;
+  font-variant-numeric:tabular-nums;
+}
+.sl{color:var(--gray-2);font-size:.9rem;line-height:1.55;max-width:200px;margin:0 auto}
+
+/* ================================================
+   SECTION SHARED
+   ================================================ */
+.sw{padding:7rem 0}
+.sh{text-align:center;margin-bottom:4.5rem}
+.st{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(2rem,3.5vw,3rem);
+  font-weight:800;line-height:1.1;letter-spacing:-.02em;
+  margin:.8rem 0 1.2rem;
+}
+.sd{color:var(--gray-2);font-size:1.05rem;max-width:580px;margin:0 auto;line-height:1.78}
+.divider{width:38px;height:2px;background:var(--orange);margin:1.2rem auto}
+
+/* ================================================
+   PAIN POINTS
+   ================================================ */
+#douleurs{background:var(--bg)}
+.dp-grid{display:grid;grid-template-columns:1fr 1fr;gap:4.5rem;align-items:center}
+.pain-list{list-style:none}
+.pi{
+  display:flex;gap:1.2rem;align-items:flex-start;
+  padding:1.4rem 0;border-bottom:1px solid rgba(255,255,255,.04);
+}
+.pi:last-child{border-bottom:none}
+.pi-ico{
+  width:40px;height:40px;flex-shrink:0;
+  background:var(--orange-glow);border:1px solid rgba(255,107,43,.2);
+  border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;
+}
+.pi-body strong{
+  display:block;font-family:'Syne',sans-serif;
+  font-size:1rem;font-weight:700;color:var(--white);margin-bottom:.3rem;
+}
+.pi-body p{color:var(--gray-2);font-size:.88rem;line-height:1.6}
+
+/* Terminal */
+.term{
+  background:var(--bg-2);border:1px solid rgba(0,212,255,.14);
+  border-radius:16px;overflow:hidden;
+  box-shadow:0 0 60px rgba(0,212,255,.04);
+}
+.term-bar{
+  background:rgba(0,212,255,.04);border-bottom:1px solid rgba(0,212,255,.09);
+  padding:.85rem 1.2rem;display:flex;align-items:center;gap:.6rem;
+}
+.td{width:10px;height:10px;border-radius:50%}
+.term-name{color:var(--gray-1);font-size:.72rem;font-family:monospace;margin-left:.3rem}
+.term-body{padding:1.8rem;font-family:'Courier New',monospace;font-size:.8rem;line-height:2.2}
+.tl{opacity:0;animation:tlin .4s forwards}
+.tl.a1{animation-delay:.6s}.tl.a2{animation-delay:1.2s}.tl.a3{animation-delay:1.8s}
+.tl.a4{animation-delay:2.4s}.tl.a5{animation-delay:3s}.tl.a6{animation-delay:3.6s}
+.tl.a7{animation-delay:4.2s}.tl.a8{animation-delay:4.8s}
+@keyframes tlin{from{opacity:0;transform:translateX(-6px)}to{opacity:1;transform:none}}
+.tc{color:var(--orange)}.ti2{color:var(--cyan)}.te{color:#ff6b6b}
+.tw{color:#ffbd2e}.tok{color:#27c93f}
+
+/* ================================================
+   SERVICES
+   ================================================ */
+#solutions{background:var(--bg-1)}
+.srv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.srv{
+  background:var(--bg-2);border:1px solid rgba(255,255,255,.05);
+  border-radius:14px;padding:2.2rem;
+  position:relative;overflow:hidden;
+  transition:border-color var(--ease),transform var(--ease),box-shadow var(--ease);
+}
+.srv::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--orange),var(--gold),transparent);
+  opacity:0;transition:opacity var(--ease);
+}
+.srv:hover{border-color:rgba(255,107,43,.2);transform:translateY(-5px);box-shadow:0 20px 50px rgba(0,0,0,.4)}
+.srv:hover::after{opacity:1}
+.srv-n{
+  font-family:'Syne',sans-serif;font-size:.7rem;font-weight:700;
+  color:var(--orange);letter-spacing:.1em;margin-bottom:1rem;opacity:.6;
+}
+.srv-ico{
+  width:52px;height:52px;background:var(--orange-glow);
+  border:1px solid rgba(255,107,43,.15);border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.5rem;margin-bottom:1.3rem;
+}
+.srv h3{
+  font-family:'Syne',sans-serif;font-size:1.02rem;font-weight:700;
+  color:var(--white);margin-bottom:.65rem;line-height:1.3;
+}
+.srv p{color:var(--gray-2);font-size:.87rem;line-height:1.65}
+
+/* ================================================
+   PROCESS
+   ================================================ */
+#methode{background:var(--bg)}
+.proc{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:0;position:relative;margin-top:4rem;
+}
+.proc::before{
+  content:'';position:absolute;top:27px;left:12.5%;right:12.5%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,107,43,.35),rgba(255,107,43,.55),rgba(255,107,43,.35),transparent);
+}
+.ps{text-align:center;padding:0 1.5rem}
+.ps-num{
+  width:54px;height:54px;border-radius:50%;
+  border:2px solid var(--orange);background:var(--bg);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;color:var(--orange);
+  margin:0 auto 1.8rem;position:relative;z-index:2;
+  transition:background var(--ease),color var(--ease),box-shadow var(--ease);
+}
+.ps:hover .ps-num{background:var(--orange);color:#fff;box-shadow:0 0 30px rgba(255,107,43,.4)}
+.ps-tag{
+  font-size:.68rem;font-weight:700;font-family:'Syne',sans-serif;
+  color:var(--gold);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.35rem;
+}
+.ps h3{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:var(--white);margin-bottom:.5rem}
+.ps p{color:var(--gray-2);font-size:.83rem;line-height:1.6}
+
+/* ================================================
+   TESTIMONIALS
+   ================================================ */
+#temoignages{background:var(--bg-1)}
+.car-wrap{position:relative;overflow:hidden}
+.car-track{display:flex;transition:transform .5s cubic-bezier(.4,0,.2,1)}
+.temo-slide{min-width:100%;padding:0 1rem}
+.temo-card{
+  max-width:780px;margin:0 auto;
+  background:var(--bg-2);border:1px solid rgba(255,255,255,.06);
+  border-radius:20px;padding:3.5rem;text-align:center;position:relative;
+}
+.temo-card::before{
+  content:'\201C';
+  position:absolute;top:-.5rem;left:2.5rem;
+  font-family:'Playfair Display',serif;
+  font-size:9rem;line-height:1;color:var(--orange);opacity:.07;
+}
+.temo-stars{color:var(--gold);font-size:1rem;letter-spacing:.2em;margin-bottom:1.5rem}
+.temo-q{
+  font-family:'Playfair Display',serif;
+  font-size:1.25rem;font-style:italic;color:var(--gray-2);
+  line-height:1.78;margin-bottom:2rem;max-width:620px;margin-left:auto;margin-right:auto;
+}
+.temo-who{display:flex;align-items:center;gap:1rem;justify-content:center}
+.temo-av{
+  width:48px;height:48px;border-radius:50%;
+  background:linear-gradient(135deg,var(--orange),var(--gold));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;color:#fff;
+}
+.temo-nm{font-family:'Syne',sans-serif;font-size:.92rem;font-weight:700;color:var(--white)}
+.temo-rl{font-size:.8rem;color:var(--gray-1)}
+.car-ctrl{display:flex;align-items:center;justify-content:center;gap:1rem;margin-top:2.5rem}
+.car-btn{
+  width:44px;height:44px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.1);background:transparent;
+  color:var(--gray-2);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;font-size:1.1rem;
+  transition:all var(--ease);
+}
+.car-btn:hover{border-color:var(--orange);color:var(--orange)}
+.car-dots{display:flex;gap:.5rem}
+.car-dot{
+  width:6px;height:6px;border-radius:50%;background:var(--gray-1);
+  cursor:pointer;transition:all var(--ease);
+}
+.car-dot.on{background:var(--orange);width:20px;border-radius:3px}
+
+/* ================================================
+   ABOUT
+   ================================================ */
+#apropos{background:var(--bg)}
+.ab-grid{display:grid;grid-template-columns:1fr 1.35fr;gap:5rem;align-items:start}
+.ab-card{
+  background:var(--bg-2);border:1px solid rgba(200,169,110,.2);
+  border-radius:20px;padding:2.5rem;position:relative;overflow:hidden;
+}
+.ab-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--orange),var(--gold));
+}
+.ab-photo{
+  width:80px;height:80px;border-radius:50%;
+  background:linear-gradient(135deg,var(--orange),var(--gold));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Syne',sans-serif;font-size:1.9rem;font-weight:800;color:#fff;
+  margin-bottom:1.2rem;box-shadow:0 0 30px rgba(255,107,43,.22);
+}
+.ab-name{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;color:var(--white);margin-bottom:.2rem}
+.ab-role{color:var(--orange);font-size:.87rem;font-weight:600;margin-bottom:1.5rem}
+.cert-list{display:flex;flex-direction:column;gap:.6rem;margin-bottom:1.5rem}
+.cert{
+  display:flex;align-items:center;gap:.8rem;
+  background:rgba(0,212,255,.04);border:1px solid rgba(0,212,255,.1);
+  border-radius:8px;padding:.65rem 1rem;
+}
+.cert-ico{font-size:1rem}
+.cert-t{font-size:.82rem}
+.cert-t strong{display:block;color:var(--white);font-size:.84rem;margin-bottom:.08rem}
+.cert-t span{color:var(--gray-1)}
+.ab-links{
+  display:flex;flex-direction:column;gap:.45rem;
+  border-top:1px solid rgba(255,255,255,.05);padding-top:1.2rem;
+}
+.ab-link{
+  display:flex;align-items:center;gap:.8rem;
+  color:var(--gray-2);font-size:.87rem;transition:color var(--ease);padding:.25rem 0;
+}
+.ab-link:hover{color:var(--orange)}
+.ab-link-i{font-size:1rem;opacity:.7}
+.ab-zone{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:var(--orange-glow);border:1px solid rgba(255,107,43,.2);
+  border-radius:20px;padding:.32rem 1rem;
+  font-size:.76rem;color:var(--orange);font-weight:600;
+  font-family:'Syne',sans-serif;margin-top:1rem;
+}
+.ab-txt p{color:var(--gray-2);font-size:.95rem;line-height:1.85;margin-bottom:1.2rem}
+.ab-txt p strong{color:var(--white)}
+.ab-metrics{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1rem;margin-top:2rem;
+  background:var(--bg-2);border:1px solid rgba(255,255,255,.05);
+  border-radius:12px;padding:1.5rem;
+}
+.m-item{text-align:center}
+.m-num{
+  font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;
+  color:var(--gold);display:block;
+}
+.m-lab{font-size:.73rem;color:var(--gray-1);margin-top:.2rem}
+
+/* ================================================
+   CTA
+   ================================================ */
+#contact{
+  background:var(--bg-3);padding:8rem 0;text-align:center;
+  position:relative;overflow:hidden;
+}
+#contact::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(255,107,43,.07) 0%,transparent 70%);
+}
+#contact>*{position:relative;z-index:1}
+.cta-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.5rem,4.5vw,4.2rem);
+  font-weight:800;line-height:1.1;
+  max-width:720px;margin:.9rem auto 1.2rem;
+}
+.cta-sub{
+  color:var(--gray-2);font-size:1.05rem;
+  max-width:500px;margin:0 auto 3rem;line-height:1.78;
+}
+.cta-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.cta-promise{
+  margin-top:1.5rem;color:var(--gray-1);font-size:.8rem;
+  display:flex;align-items:center;justify-content:center;gap:.5rem;
+}
+.cta-promise::before{content:'✓';color:var(--orange);font-weight:700}
+.cta-contacts{
+  display:flex;align-items:center;justify-content:center;gap:1.2rem;
+  flex-wrap:wrap;margin-top:2rem;
+}
+.cta-contact-item{
+  display:inline-flex;align-items:center;gap:.5rem;
+  color:var(--gray-2);font-size:.9rem;
+  border:1px solid rgba(255,255,255,.08);
+  padding:.55rem 1.2rem;border-radius:30px;
+  transition:all var(--ease);
+}
+.cta-contact-item:hover{color:var(--orange);border-color:rgba(255,107,43,.3)}
+.cta-contact-sep{color:var(--gray-1);font-size:1.2rem}
+
+/* ================================================
+   FOOTER
+   ================================================ */
+footer{
+  background:var(--bg-1);
+  border-top:1px solid rgba(255,255,255,.04);
+  padding:3rem 0 2rem;
+}
+.ft-grid{
+  display:grid;grid-template-columns:1.5fr 1fr 1fr;
+  gap:4rem;padding-bottom:2.5rem;
+  border-bottom:1px solid rgba(255,255,255,.04);margin-bottom:2rem;
+}
+.ft-brand .logo{font-size:1.25rem;margin-bottom:.8rem}
+.ft-brand p{color:var(--gray-1);font-size:.84rem;line-height:1.7;max-width:270px}
+.ft-col h4{
+  font-family:'Syne',sans-serif;font-size:.75rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.12em;color:var(--gray-2);margin-bottom:1rem;
+}
+.ft-col a{display:block;color:var(--gray-1);font-size:.86rem;margin-bottom:.6rem;transition:color var(--ease)}
+.ft-col a:hover{color:var(--orange)}
+.ft-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem}
+.ft-bottom p{color:var(--gray-1);font-size:.76rem}
+
+/* ================================================
+   BACK TO TOP
+   ================================================ */
+#btt{
+  position:fixed;bottom:2rem;right:2rem;z-index:500;
+  width:44px;height:44px;border-radius:50%;
+  background:var(--orange);color:#fff;font-size:1.1rem;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;border:none;
+  opacity:0;transform:translateY(10px);transition:all var(--ease);
+  box-shadow:0 4px 20px rgba(255,107,43,.4);
+}
+#btt.vis{opacity:1;transform:translateY(0)}
+#btt:hover{background:var(--orange-lt);transform:translateY(-2px)}
+
+/* ================================================
+   RESPONSIVE
+   ================================================ */
+@media(max-width:1024px){
+  .srv-grid{grid-template-columns:repeat(2,1fr)}
+  .ab-grid{grid-template-columns:1fr;gap:3rem}
+  .ab-txt .st{text-align:center}
+  .ab-txt .eyebrow{display:block;text-align:center}
+  .ft-grid{grid-template-columns:1fr 1fr;gap:2.5rem}
+  .ft-brand{grid-column:1/-1}
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .burger{display:flex}
+  .hero-title{font-size:clamp(2.5rem,8vw,3.5rem)}
+  .stats-grid{grid-template-columns:1fr}
+  .dp-grid{grid-template-columns:1fr;gap:3rem}
+  .srv-grid{grid-template-columns:1fr}
+  .proc{grid-template-columns:1fr 1fr;gap:2.5rem}
+  .proc::before{display:none}
+  .temo-card{padding:2.2rem 1.6rem}
+  .temo-q{font-size:1rem}
+  .ft-grid{grid-template-columns:1fr;gap:2rem}
+  .ft-bottom{flex-direction:column;text-align:center}
+  .sw{padding:5rem 0}
+  #hero{padding:7rem 2rem 4rem}
+}
+@media(max-width:480px){
+  .proc{grid-template-columns:1fr}
+  .hero-btns,.cta-actions{flex-direction:column;align-items:center}
+  .ab-metrics{grid-template-columns:repeat(3,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════ NAVIGATION ═══════ -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#hero" class="logo">IA<span>Stratégie</span></a>
+    <div class="nav-links">
+      <a href="#douleurs">Vos enjeux</a>
+      <a href="#solutions">Solutions</a>
+      <a href="#methode">Méthode</a>
+      <a href="#apropos">À propos</a>
+      <a href="https://calendly.com/stephanedacunto" target="_blank" class="nav-btn">Prendre RDV →</a>
+    </div>
+    <button class="burger" id="burger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ═══════ MOBILE MENU ═══════ -->
+<div class="mob-menu" id="mobMenu">
+  <a href="#douleurs" class="mob-lnk">Vos enjeux</a>
+  <a href="#solutions" class="mob-lnk">Solutions</a>
+  <a href="#methode" class="mob-lnk">Méthode</a>
+  <a href="#apropos" class="mob-lnk">À propos</a>
+  <a href="https://calendly.com/stephanedacunto" target="_blank" class="mob-cta">Réserver mon audit gratuit →</a>
+</div>
+
+<!-- ═══════ HERO ═══════ -->
+<section id="hero">
+  <div class="hero-mesh"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-orb"></div>
+  <div class="hero-content reveal">
+    <div class="hero-badge">
+      <div class="badge-dot"></div>
+      Consultant IA · PME &amp; ETI
+    </div>
+    <h1 class="hero-title">
+      L'intelligence artificielle<br>
+      <span class="ac">au service de votre</span><br>
+      croissance.
+      <span class="sub">Pragmatique · Terrain · Orienté résultats</span>
+    </h1>
+    <p class="hero-sub">
+      Vous perdez des heures sur des tâches qui ne rapportent rien.
+      Vos process sont dans votre tête. Vos concurrents prennent de l'avance.<br>
+      <strong>En 30 minutes d'audit gratuit, on identifie vos 3 premiers leviers IA.</strong>
+    </p>
+    <div class="hero-btns">
+      <a href="https://calendly.com/stephanedacunto" target="_blank" class="btn-p">📅 Audit gratuit — 30 min</a>
+      <a href="#solutions" class="btn-o">Découvrir les solutions</a>
+    </div>
+  </div>
+  <div class="scroll-hint">Défiler</div>
+</section>
+
+<!-- ═══════ TICKER ═══════ -->
+<div class="ticker">
+  <div class="ticker-track">
+    <div class="ti"><span>⚡</span>Coach Certifié RNCP</div>
+    <div class="ti"><span>·</span></div>
+    <div class="ti"><span>🤖</span>Consultant IA Générative</div>
+    <div class="ti"><span>·</span></div>
+    <div class="ti"><span>🎯</span>Closeur Certifié</div>
+    <div class="ti"><span>·</span></div>
+    <div class="ti"><span>📊</span>30 ans d'entrepreneuriat</div>
+    <div class="ti"><span>·</span></div>
+    <div class="ti"><span>🎓</span>Formateur Certifié</div>
+    <div class="ti"><span>·</span></div>
+    <div class="ti"><span>📍</span>Marseille · Francophonie</div>
+    <div class="ti"><span>·</span></div>
+    <div class="ti"><span>✓</span>Présentiel &amp; Visio</div>
+    <div class="ti"><span>·</span></div>
+    <!-- duplicate for seamless loop -->
+    <div class="ti"><span>⚡</span>Coach Certifié RNCP</div>
+    <div class="ti"><span>·</span></div>
+    <div class="ti"><span>🤖</span>Consultant IA Générative</div>
+    <div class="ti"><span>·</span></div>
+    <div class="ti"><span>🎯</span>Closeur Certifié</div>
+    <div class="ti"><span>·</span></div>
+    <div class="ti"><span>📊</span>30 ans d'entrepreneuriat</div>
+    <div class="ti"><span>·</span></div>
+    <div class="ti"><span>🎓</span>Formateur Certifié</div>
+    <div class="ti"><span>·</span></div>
+    <div class="ti"><span>📍</span>Marseille · Francophonie</div>
+    <div class="ti"><span>·</span></div>
+    <div class="ti"><span>✓</span>Présentiel &amp; Visio</div>
+    <div class="ti"><span>·</span></div>
+  </div>
+</div>
+
+<!-- ═══════ STATS ═══════ -->
+<section id="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="sc reveal">
+        <div class="sn" data-target="3" data-suffix="×">0×</div>
+        <div class="sl">Productivité moyenne gagnée par nos clients PME en 3 mois</div>
+      </div>
+      <div class="sc reveal d2">
+        <div class="sn" data-target="40" data-prefix="−" data-suffix="%">−0%</div>
+        <div class="sl">De temps perdu sur les tâches répétitives et administratives</div>
+      </div>
+      <div class="sc reveal d4">
+        <div class="sn" data-target="85" data-prefix="+" data-suffix="%">+0%</div>
+        <div class="sl">ROI moyen constaté dans les 6 premiers mois d'intégration IA</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ PAIN POINTS ═══════ -->
+<section id="douleurs" class="sw">
+  <div class="container">
+    <div class="dp-grid">
+      <div>
+        <div class="eyebrow reveal">Vous reconnaissez-vous ?</div>
+        <h2 class="st reveal d1">Vous avancez vite.<br>Mais pas assez vite.</h2>
+        <ul class="pain-list">
+          <li class="pi reveal d1">
+            <div class="pi-ico">⏳</div>
+            <div class="pi-body">
+              <strong>Vous manquez de temps pour tout</strong>
+              <p>Emails, reporting, tâches répétitives… votre journée disparaît dans l'opérationnel au lieu de la stratégie.</p>
+            </div>
+          </li>
+          <li class="pi reveal d2">
+            <div class="pi-ico">📋</div>
+            <div class="pi-body">
+              <strong>Vos process reposent sur vous seul</strong>
+              <p>Tout passe par vous. Si vous vous arrêtez, l'entreprise ralentit. Cette dépendance a un coût.</p>
+            </div>
+          </li>
+          <li class="pi reveal d3">
+            <div class="pi-ico">🌐</div>
+            <div class="pi-body">
+              <strong>L'IA vous intéresse, mais c'est le flou</strong>
+              <p>ChatGPT, Copilot, agents IA… trop d'outils, aucune méthode claire adaptée à votre secteur.</p>
+            </div>
+          </li>
+          <li class="pi reveal d4">
+            <div class="pi-ico">📈</div>
+            <div class="pi-body">
+              <strong>Vos concurrents accélèrent</strong>
+              <p>Ceux qui intègrent l'IA aujourd'hui prendront une avance difficile à combler dans 12 mois.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="reveal d2">
+        <div class="term">
+          <div class="term-bar">
+            <div class="td" style="background:#ff5f56"></div>
+            <div class="td" style="background:#ffbd2e"></div>
+            <div class="td" style="background:#27c93f"></div>
+            <span class="term-name">diagnostic_pme.sh</span>
+          </div>
+          <div class="term-body">
+            <div class="tl a1 tc">$ scan --company=votre_PME --mode=IA</div>
+            <div class="tl a2 ti2">▶ Analyse en cours...</div>
+            <div class="tl a3 te">✗ Tâches manuelles répétitives : 68%</div>
+            <div class="tl a4 tw">⚠ Process non documentés : 12 critiques</div>
+            <div class="tl a5 te">✗ Temps perdu / semaine : 18h par collab.</div>
+            <div class="tl a6 tw">⚠ Adoption IA actuelle : 0%</div>
+            <div class="tl a7 tok">→ Potentiel identifié : +3× productivité</div>
+            <div class="tl a8 tc">$ solution --expert=IA_Strategie ✓</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ SOLUTIONS ═══════ -->
+<section id="solutions" class="sw">
+  <div class="container">
+    <div class="sh">
+      <div class="eyebrow reveal">Ce que je fais concrètement</div>
+      <div class="divider"></div>
+      <h2 class="st reveal d1">6 leviers IA pour transformer<br>votre performance</h2>
+      <p class="sd reveal d2">Des solutions sur-mesure, déployées dans votre réalité terrain — pas des slides PowerPoint.</p>
+    </div>
+    <div class="srv-grid">
+      <div class="srv reveal d1">
+        <div class="srv-n">01</div>
+        <div class="srv-ico">⚡</div>
+        <h3>Automatisation des tâches répétitives</h3>
+        <p>Emails, devis, reporting, saisie de données — vos tâches chronophages déléguées à l'IA en quelques jours.</p>
+      </div>
+      <div class="srv reveal d2">
+        <div class="srv-n">02</div>
+        <div class="srv-ico">🧠</div>
+        <h3>Assistants IA métier personnalisés</h3>
+        <p>Un agent IA entraîné sur votre activité, vos produits, votre ton. Opérationnel 24h/24, cohérent à 100%.</p>
+      </div>
+      <div class="srv reveal d3">
+        <div class="srv-n">03</div>
+        <div class="srv-ico">✍️</div>
+        <h3>Production de contenu accélérée</h3>
+        <p>Articles, posts réseaux, offres commerciales, newsletters — créés en minutes, pas en heures.</p>
+      </div>
+      <div class="srv reveal d1">
+        <div class="srv-n">04</div>
+        <div class="srv-ico">🔗</div>
+        <h3>Structuration des process internes</h3>
+        <p>Procédures documentées, workflows optimisés, équipes alignées. L'entreprise tourne sans vous.</p>
+      </div>
+      <div class="srv reveal d2">
+        <div class="srv-n">05</div>
+        <div class="srv-ico">💬</div>
+        <h3>IA &amp; relation client</h3>
+        <p>Chatbots, réponses automatiques, suivi personnalisé — votre client se sent unique, votre équipe respire.</p>
+      </div>
+      <div class="srv reveal d3">
+        <div class="srv-n">06</div>
+        <div class="srv-ico">📊</div>
+        <h3>Formation &amp; montée en compétences</h3>
+        <p>Vos équipes formées aux bons outils. Adoption rapide, résistance dépassée, résultats immédiats.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ METHODE ═══════ -->
+<section id="methode" class="sw">
+  <div class="container">
+    <div class="sh">
+      <div class="eyebrow reveal">La méthode</div>
+      <div class="divider"></div>
+      <h2 class="st reveal d1">4 étapes. Des résultats concrets.<br>Une transformation qui dure.</h2>
+    </div>
+    <div class="proc">
+      <div class="ps reveal d1">
+        <div class="ps-num">1</div>
+        <div class="ps-tag">Semaine 1</div>
+        <h3>Audit</h3>
+        <p>Diagnostic complet de vos process, outils et pertes de temps. 30 min, gratuit, sans engagement.</p>
+      </div>
+      <div class="ps reveal d2">
+        <div class="ps-num">2</div>
+        <div class="ps-tag">Semaine 2</div>
+        <h3>Stratégie</h3>
+        <p>Plan d'action personnalisé avec priorisation des gains rapides et des transformations profondes.</p>
+      </div>
+      <div class="ps reveal d3">
+        <div class="ps-num">3</div>
+        <div class="ps-tag">Semaines 3–8</div>
+        <h3>Déploiement</h3>
+        <p>Mise en place des solutions IA dans votre environnement réel. Accompagnement terrain ou visio.</p>
+      </div>
+      <div class="ps reveal d4">
+        <div class="ps-num">4</div>
+        <div class="ps-tag">En continu</div>
+        <h3>Autonomie</h3>
+        <p>Formation de vos équipes, documentation, suivi. Vous avancez seuls — et plus vite qu'avant.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ TEMOIGNAGES ═══════ -->
+<section id="temoignages" class="sw">
+  <div class="container">
+    <div class="sh">
+      <div class="eyebrow reveal">Résultats clients</div>
+      <div class="divider"></div>
+      <h2 class="st reveal d1">Des PME qui ont sauté le pas</h2>
+    </div>
+    <div class="car-wrap reveal d2">
+      <div class="car-track" id="carTrack">
+        <div class="temo-slide">
+          <div class="temo-card">
+            <div class="temo-stars">★★★★★</div>
+            <p class="temo-q">« En 6 semaines, on a automatisé 80 % de notre reporting. Mon équipe se concentre enfin sur ce qui compte. Le ROI a été visible dès le deuxième mois. »</p>
+            <div class="temo-who">
+              <div class="temo-av">ML</div>
+              <div>
+                <div class="temo-nm">Marie-Laure D.</div>
+                <div class="temo-rl">Dirigeante · Cabinet RH · 22 salariés</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="temo-slide">
+          <div class="temo-card">
+            <div class="temo-stars">★★★★★</div>
+            <p class="temo-q">« J'étais sceptique sur l'IA pour mon agence. Stéphane a su adapter les outils à notre réalité. Aujourd'hui nos mandats se traitent deux fois plus vite. »</p>
+            <div class="temo-who">
+              <div class="temo-av">TR</div>
+              <div>
+                <div class="temo-nm">Thierry R.</div>
+                <div class="temo-rl">Directeur · Agence immobilière · Marseille</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="temo-slide">
+          <div class="temo-card">
+            <div class="temo-stars">★★★★★</div>
+            <p class="temo-q">« La formation équipe a été une révélation. En 2 jours, mes collaborateurs maîtrisaient des outils IA qui nous font gagner 10h/semaine. Concret et immédiat. »</p>
+            <div class="temo-who">
+              <div class="temo-av">SB</div>
+              <div>
+                <div class="temo-nm">Sophie B.</div>
+                <div class="temo-rl">Fondatrice · Agence digitale · Lyon</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="car-ctrl">
+        <button class="car-btn" id="carPrev">←</button>
+        <div class="car-dots" id="carDots">
+          <div class="car-dot on"></div>
+          <div class="car-dot"></div>
+          <div class="car-dot"></div>
+        </div>
+        <button class="car-btn" id="carNext">→</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ ABOUT ═══════ -->
+<section id="apropos" class="sw">
+  <div class="container">
+    <div class="ab-grid">
+      <div class="reveal">
+        <div class="ab-card">
+          <div class="ab-photo">SD</div>
+          <div class="ab-name">Stéphane D'Acunto</div>
+          <div class="ab-role">Consultant IA · Coach RNCP · Formateur · Closeur</div>
+          <div class="cert-list">
+            <div class="cert">
+              <span class="cert-ico">🤖</span>
+              <div class="cert-t"><strong>Certifié Intelligence Artificielle</strong><span>Consultant IA générative appliquée</span></div>
+            </div>
+            <div class="cert">
+              <span class="cert-ico">🎓</span>
+              <div class="cert-t"><strong>Coach Certifié RNCP</strong><span>Développement personnel, pro &amp; gestion du temps</span></div>
+            </div>
+            <div class="cert">
+              <span class="cert-ico">📋</span>
+              <div class="cert-t"><strong>Formateur Certifié</strong><span>Organisme de formation agréé</span></div>
+            </div>
+            <div class="cert">
+              <span class="cert-ico">🎯</span>
+              <div class="cert-t"><strong>Closeur Certifié</strong><span>Expert vente &amp; leadership commercial</span></div>
+            </div>
+          </div>
+          <div class="ab-links">
+            <a href="tel:+33666121645" class="ab-link"><span class="ab-link-i">📞</span>+33 6 66 12 16 45</a>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=alevidence13@gmail.com" target="_blank" class="ab-link"><span class="ab-link-i">✉️</span>alevidence13@gmail.com</a>
+            <a href="https://calendly.com/stephanedacunto" target="_blank" class="ab-link"><span class="ab-link-i">📅</span>Prendre rendez-vous</a>
+          </div>
+          <div class="ab-zone">📍 Bouches-du-Rhône · Présentiel &amp; Visio francophonie</div>
+        </div>
+      </div>
+      <div class="ab-txt reveal d2">
+        <div class="eyebrow">À propos</div>
+        <h2 class="st" style="text-align:left;margin-top:.8rem">30 ans d'entreprise.<br>L'IA comme levier<br>de transformation.</h2>
+        <p>Entrepreneur depuis 30 ans dans l'immobilier, j'ai traversé toutes les transformations du marché. Aujourd'hui, <strong>l'IA générative représente le changement le plus profond que j'aie vécu</strong> — et le plus accessible pour les PME qui savent l'utiliser.</p>
+        <p>Coach certifié RNCP, formateur, closeur et désormais consultant IA, j'accompagne les dirigeants qui veulent <strong>concrètement gagner du temps, structurer leur activité et professionnaliser leur entreprise</strong> grâce à l'intelligence artificielle.</p>
+        <p>Ma différence : je parle le langage du dirigeant, pas celui du développeur. <strong>Pragmatique, terrain, orienté résultats.</strong></p>
+        <div class="ab-metrics">
+          <div class="m-item"><span class="m-num">30</span><div class="m-lab">ans d'entrepreneuriat</div></div>
+          <div class="m-item"><span class="m-num">4</span><div class="m-lab">certifications pro</div></div>
+          <div class="m-item"><span class="m-num">100%</span><div class="m-lab">orienté résultats</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ CTA ═══════ -->
+<section id="contact">
+  <div class="container">
+    <div class="eyebrow reveal" style="display:block;text-align:center">Passez à l'action</div>
+    <h2 class="cta-title reveal d1">Votre audit IA gratuit<br>vous attend.</h2>
+    <p class="cta-sub reveal d2">30 minutes pour identifier vos 3 leviers IA prioritaires.<br>Sans engagement. Sans jargon. Sans prise de tête.</p>
+    <div class="cta-actions reveal d3">
+      <a href="https://calendly.com/stephanedacunto" target="_blank" class="btn-p" style="font-size:1.05rem;padding:1.1rem 2.8rem">📅 Réserver mon audit gratuit</a>
+      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=alevidence13@gmail.com&su=Demande%20audit%20IA%20gratuit&body=Bonjour%20St%C3%A9phane%2C%0A%0AJe%20souhaite%20en%20savoir%20plus%20sur%20vos%20services.%0A%0ACordialement" target="_blank" class="btn-o">✉️ Envoyer un message</a>
+    </div>
+    <p class="cta-promise reveal d4">Réponse garantie sous 24h ouvrées · Sans engagement</p>
+    <div class="cta-contacts reveal d5">
+      <a href="tel:+33666121645" class="cta-contact-item">📞 +33 6 66 12 16 45</a>
+      <span class="cta-contact-sep">·</span>
+      <a href="https://calendly.com/stephanedacunto" target="_blank" class="cta-contact-item">📅 calendly.com/stephanedacunto</a>
+      <span class="cta-contact-sep">·</span>
+      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=alevidence13@gmail.com" target="_blank" class="cta-contact-item">✉️ alevidence13@gmail.com</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ FOOTER ═══════ -->
+<footer>
+  <div class="container">
+    <div class="ft-grid">
+      <div class="ft-brand">
+        <div class="logo">IA<span>Stratégie</span></div>
+        <p style="margin-top:.8rem">Consultant IA pour PME et ETI. Intégration pragmatique de l'intelligence artificielle générative dans vos process métier.</p>
+      </div>
+      <div class="ft-col">
+        <h4>Navigation</h4>
+        <a href="#douleurs">Vos enjeux</a>
+        <a href="#solutions">Solutions</a>
+        <a href="#methode">Méthode</a>
+        <a href="#temoignages">Résultats clients</a>
+        <a href="#apropos">À propos</a>
+      </div>
+      <div class="ft-col">
+        <h4>Contact</h4>
+        <a href="tel:+33666121645">📞 +33 6 66 12 16 45</a>
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=alevidence13@gmail.com" target="_blank">✉️ alevidence13@gmail.com</a>
+        <a href="https://calendly.com/stephanedacunto" target="_blank">📅 Réserver un appel →</a>
+        <a href="#hero" style="margin-top:.4rem;color:var(--gray-1)">📍 Marseille · Visio francophonie</a>
+      </div>
+    </div>
+    <div class="ft-bottom">
+      <p>© 2025 IA Stratégie — Stéphane D'Acunto</p>
+      <p>Marseille &amp; Francophonie · Tous droits réservés</p>
+    </div>
+  </div>
+</footer>
+
+<!-- BACK TO TOP -->
+<button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Haut de page">↑</button>
+
+<script>
+/* ── Nav scroll ── */
+const nav=document.getElementById('nav');
+const btt=document.getElementById('btt');
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('on',scrollY>60);
+  btt.classList.toggle('vis',scrollY>400);
+},{passive:true});
+
+/* ── Hamburger ── */
+const burger=document.getElementById('burger');
+const mob=document.getElementById('mobMenu');
+burger.addEventListener('click',()=>{
+  burger.classList.toggle('on');
+  mob.classList.toggle('on');
+  document.body.style.overflow=mob.classList.contains('on')?'hidden':'';
+});
+document.querySelectorAll('.mob-lnk,.mob-cta').forEach(a=>{
+  a.addEventListener('click',()=>{
+    burger.classList.remove('on');mob.classList.remove('on');
+    document.body.style.overflow='';
+  });
+});
+
+/* ── Reveal ── */
+const ro=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');ro.unobserve(e.target);}});
+},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+
+/* ── Counters ── */
+function counter(el){
+  const t=+el.dataset.target,pre=el.dataset.prefix||'',suf=el.dataset.suffix||'';
+  const dur=1800,s=performance.now();
+  (function run(now){
+    const p=Math.min((now-s)/dur,1),ease=1-Math.pow(1-p,3);
+    el.textContent=pre+Math.round(ease*t)+suf;
+    if(p<1)requestAnimationFrame(run);
+  })(s);
+}
+const co=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){counter(e.target);co.unobserve(e.target);}});
+},{threshold:.5});
+document.querySelectorAll('[data-target]').forEach(el=>co.observe(el));
+
+/* ── Carousel ── */
+const track=document.getElementById('carTrack');
+const dots=document.querySelectorAll('.car-dot');
+let cur=0,total=dots.length;
+function goTo(i){
+  cur=(i+total)%total;
+  track.style.transform=`translateX(-${cur*100}%)`;
+  dots.forEach((d,j)=>d.classList.toggle('on',j===cur));
+}
+document.getElementById('carPrev').onclick=()=>goTo(cur-1);
+document.getElementById('carNext').onclick=()=>goTo(cur+1);
+dots.forEach((d,i)=>d.onclick=()=>goTo(i));
+let ap=setInterval(()=>goTo(cur+1),5000);
+track.parentElement.addEventListener('mouseenter',()=>clearInterval(ap));
+track.parentElement.addEventListener('mouseleave',()=>{ap=setInterval(()=>goTo(cur+1),5000);});
+let tx=0;
+track.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
+track.addEventListener('touchend',e=>{
+  const d=tx-e.changedTouches[0].clientX;
+  if(Math.abs(d)>50)goTo(cur+(d>0?1:-1));
+});
+</script>
+</body>
+</html>
